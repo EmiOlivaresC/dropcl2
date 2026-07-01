@@ -26,16 +26,23 @@
       <img src="https://via.placeholder.com/300x200?text=Audifonos" alt="Audífonos">
       <h3>Auriculares TWS con ANC</h3>
       <p><strong>$24.990</strong></p>
-      <button>Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Auriculares TWS con ANC', 24990)">Agregar al carrito</button>
     </div>
 
     <div class="producto">
       <img src="https://via.placeholder.com/300x200?text=Powerbank" alt="Power Bank">
       <h3>Power Bank 20.000 mAh</h3>
       <p><strong>$14.990</strong></p>
-      <button>Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Power Bank 20.000 mAh', 14990)">Agregar al carrito</button>
     </div>
   </section>
+
+  <script>
+    function agregarAlCarrito(nombre, precio) {
+      alert(`✅ ${nombre} agregado al carrito por $${precio}`);
+      // Aquí podrías agregar lógica real de carrito
+    }
+  </script>
 
 </body>
 </html>
