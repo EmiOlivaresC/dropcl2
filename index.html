@@ -9,22 +9,23 @@
       font-family: Arial, sans-serif; 
       margin: 0; 
       padding: 0; 
-      background: linear-gradient(135deg, #1a1a2e, #16213e); 
+      background: url('https://grok.x.ai/generated-image/LUXnt') no-repeat center center fixed;
+      background-size: cover;
       color: white;
     }
     header { 
-      background: #000; 
+      background: rgba(0,0,0,0.85); 
       padding: 2rem; 
       text-align: center; 
     }
     .producto { 
-      border: 1px solid #333; 
+      border: 1px solid rgba(255,255,255,0.2); 
       margin: 15px; 
       padding: 15px; 
       text-align: center; 
       width: 280px; 
       display: inline-block; 
-      background: rgba(255,255,255,0.1); 
+      background: rgba(0,0,0,0.6); 
       border-radius: 12px; 
       backdrop-filter: blur(10px);
     }
@@ -42,9 +43,21 @@
       cursor: pointer; 
       border-radius: 8px; 
       font-weight: bold; 
-      margin-top: 10px;
+      margin: 5px;
     }
     button:hover { background: #ff8533; }
+    #carrito { 
+      position: fixed; 
+      top: 20px; 
+      right: 20px; 
+      background: rgba(0,0,0,0.9); 
+      padding: 15px; 
+      border-radius: 10px; 
+      width: 300px; 
+      max-height: 80vh; 
+      overflow-y: auto; 
+      box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+    }
   </style>
 </head>
 <body>
@@ -72,9 +85,42 @@
     </div>
   </section>
 
+  <!-- Carrito visible -->
+  <div id="carrito">
+    <h3>🛒 Carrito (<span id="contador">0</span>)</h3>
+    <div id="lista-carrito"></div>
+    <p>Total: $<span id="total">0</span></p>
+    <button onclick="iniciarPago()" style="width:100%; background:#00cc00;">Iniciar con el pago</button>
+  </div>
+
   <script>
+    let carrito = [];
+
     function agregarAlCarrito(nombre, precio) {
-      alert(`✅ ${nombre} agregado al carrito por $${precio.toLocaleString('es-CL')}`);
+      carrito.push({nombre, precio});
+      actualizarCarrito();
+      alert(`✅ ${nombre} agregado al carrito`);
+    }
+
+    function actualizarCarrito() {
+      let lista = document.getElementById('lista-carrito');
+      let total = 0;
+      lista.innerHTML = '';
+      carrito.forEach(item => {
+        total += item.precio;
+        lista.innerHTML += `<div class="producto-carrito">${item.nombre} - $${item.precio}</div>`;
+      });
+      document.getElementById('contador').textContent = carrito.length;
+      document.getElementById('total').textContent = total.toLocaleString('es-CL');
+    }
+
+    function iniciarPago() {
+      if (carrito.length === 0) {
+        alert("El carrito está vacío");
+        return;
+      }
+      alert("Redirigiendo a Webpay...");
+      window.open("https://www.webpay.cl", "_blank");
     }
   </script>
 
